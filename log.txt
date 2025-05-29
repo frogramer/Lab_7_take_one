@@ -1,0 +1,9 @@
+2025-05-29 22:01:49 [main] INFO  org.example.IO.Logging - Logging system initialized
+2025-05-29 22:02:03 [main] INFO  org.example.ServerApp - Command received and executed: info
+2025-05-29 22:02:03 [main] INFO  org.example.ServerApp - Response sent
+2025-05-29 22:02:31 [main] INFO  org.example.ServerApp - Command received and executed: insert
+2025-05-29 22:02:31 [main] INFO  org.example.ServerApp - Response sent
+2025-05-29 22:02:39 [main] INFO  org.example.ServerApp - Command received and executed: info
+2025-05-29 22:02:39 [main] INFO  org.example.ServerApp - Response sent
+2025-05-29 22:02:42 [main] INFO  org.example.ServerApp - Command received and executed: show
+2025-05-29 22:02:42 [main] INFO  org.example.ServerApp - Response sent

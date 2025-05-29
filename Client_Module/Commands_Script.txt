@@ -1,0 +1,73 @@
+insert
+dragon1
+110.9 100
+100
+yellow
+underground
+chaotic
+person1
+30.06.2006
+orange
+vatican
+insert
+dragon2
+1 1
+1000
+black
+fire
+chaotic_evil
+person2
+02.05.2007
+white
+china
+insert
+dragon3
+10 15
+999
+red
+
+evil
+
+insert
+dragon4
+17 138
+10000
+orange
+water
+good
+person4
+01.01.01
+
+usa
+insert
+dragon5
+9 99
+1048
+white
+
+good
+
+insert
+dragon6
+10 15
+999
+red
+
+evil
+
+insert
+dragon7
+1748 19
+10134
+white
+
+evil
+
+insert
+fresh_new_name
+10 1
+1
+yellow
+
+good
+

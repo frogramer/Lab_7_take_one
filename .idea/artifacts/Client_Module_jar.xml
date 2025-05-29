@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Client_Module:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Client_Module_jar</output-path>
+    <root id="archive" name="Client_Module.jar">
+      <element id="module-output" name="Client_Module" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/postgresql-42.7.5.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/gson-2.12.1.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

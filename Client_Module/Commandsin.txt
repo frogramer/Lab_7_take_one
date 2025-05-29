@@ -1,0 +1,10 @@
+insert
+HIHI dragon
+10 -100
+193
+yellow
+
+good
+
+print_field_descending_color
+execute_script C:\Users\vanob\IdeaProjects\Lab_7_take_one\Client_Module\Commands_Script.txt
