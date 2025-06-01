@@ -55,17 +55,17 @@ public class EnterClass {
         String login = enterClientLogin();
         char[] pass = enterClientPassword();
         byte[] salt = Client.generateSalt();
-        System.out.println(pass);
+        //System.out.println(pass);
         String p = Arrays.toString(pass).replaceAll(", ", "");
         String s;
         s = p.replaceAll("]", "");
         s = s.replaceAll("\\[", "");
         String password = Client.hashPassword(s, salt);
-        System.out.println(password);
+        /*System.out.println(password);
         System.out.println(Client.hashPassword(pass.toString(), salt));
         System.out.println(Client.hashPassword(pass.toString(), salt));
         System.out.println(Client.hashPassword(pass.toString(), salt));
-        System.out.println(Client.hashPassword(password, salt));
+        System.out.println(Client.hashPassword(password, salt));*/
         Client client = new Client(login, password, salt.toString(), signedIn);
         return client;
         /*try {
@@ -107,8 +107,8 @@ public class EnterClass {
         boolean done = false;
         char[] pass = null;
         while (!done) {
-            //pass = console.readPassword();
-            pass = in.next().toCharArray();
+            pass = console.readPassword();
+            //pass = in.next().toCharArray();
             done = true;
             String passString = new String(pass);
             if (passString.trim().equals(""))

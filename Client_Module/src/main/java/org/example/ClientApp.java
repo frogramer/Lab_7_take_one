@@ -34,7 +34,7 @@ public class ClientApp {
         sendingCommandsloop(initialize());
     }
     private static void sendingCommandsloop(DatagramChannel datagramChannel) {
-        System.out.println(Client.curClient.getId());
+       // System.out.println(Client.curClient.getId());
         while (true) {
             //(DatagramChannel datagramChannel = Server.reconnect())
             try {
@@ -43,7 +43,10 @@ public class ClientApp {
                 Thread.sleep(500);
                 datagramChannel.receive(readBuffer);*/
                 DefaultCommand command = InputCommand();
-                command.setClient(Client.curClient);
+                command.setClient(Client.getCurClient());
+                if (command.getClass() == ExitCommand.class) {
+                    command.Execute(new Scanner(System.in));
+                }
                 //System.out.println(command.getClient().getId());
                 //command.setClient(Client.curClient);
                 //command.setCurClient(client);

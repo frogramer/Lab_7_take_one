@@ -121,12 +121,12 @@ public class ServerApp {
                 }*/
                 datagramChannel.send(buffer, clientAddress);
                 Server.sendResponse(new ShowCommand().Execute(datagramChannel, clientAddress), clientAddress, datagramChannel);
-                System.out.println("Now checking client in");
-                Server.checkNewClient(datagramChannel, clientAddress, connection);
+                //System.out.println("Now checking client in");
+                //Server.checkNewClient(datagramChannel, clientAddress, connection);
                 buffer.clear();
                 clientAddress = datagramChannel.receive(buffer);
                 Logging.addresses.add(clientAddress);
-                logger.info("New client connected: " + clientAddress);
+                logger.info("New client connected");
                 //DataBase.start_registration(datagramChannel, connection, clientAddress);
                 //return;
                 //logger.info("New client connected");
@@ -153,7 +153,7 @@ public class ServerApp {
             }
             if (DataBase.notYetSighed > 0)
             {
-                System.out.println("Checking if signed");
+                //System.out.println("Checking if signed");
                 ByteBuffer buffer2 = buffer;
                 ByteArrayInputStream byteIn2 = new ByteArrayInputStream(buffer2.array(), 0, buffer2.limit());
                 ObjectInputStream objectIn2  = new ObjectInputStream(byteIn2);
@@ -168,12 +168,15 @@ public class ServerApp {
                     if (client != null)
                     {
                        // System.out.println("Checking if signed2");
-                        Server.checkNewClient(client, datagramChannel, clientAddress, connection);
+                        if (Server.checkNewClient(client, datagramChannel, clientAddress, connection))
+                        {
+                            logger.info("New client connected:");
+                        }
                         //System.out.println("Checking if signed3");
                         //notYetSighed--;
                     }
                     else {
-                        System.out.println("client is hull");
+                        //System.out.println("client is hull");
                     }
                     //System.out.println("Checking if signed3");
                 } catch (Exception e) {
@@ -207,8 +210,8 @@ public class ServerApp {
                     }
                     processor.process(command, datagramChannel, clientAddress);
                     //Server.sendResponse(response, clientAddress, datagramChannel);
-                    logger.info("Response sent");
-                    System.out.println(command.getClient().getId());
+                    logger.info("Command executed: " + command.getClass().toString());
+                    //System.out.println(command.getClient().getId());
                     SaveCommand.executeSaveDatabase(datagramChannel, connection, command.getClient());
                     /*ByteBuffer responseBuffer = ByteBuffer.wrap("response".getBytes(StandardCharsets.UTF_8));
                     try {

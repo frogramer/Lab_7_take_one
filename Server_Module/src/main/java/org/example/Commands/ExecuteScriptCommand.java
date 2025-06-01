@@ -94,7 +94,7 @@ public class ExecuteScriptCommand implements DefaultCommand{
             }
         } catch (NullPointerException e)
         {
-            System.out.println(script);
+            //System.out.println(script);
             files.put(file_name.split("\\\\")[file_name.split("\\\\").length - 1], script);
         } catch (IOException e)
         {

@@ -78,7 +78,7 @@ public class ExecuteScriptCommand implements DefaultCommand{
                         throw new FileNotFoundException();
                     }
                     else {
-                        script += "execute_script " + Client.curClient.getLogin() + "\\" +
+                        script += "execute_script " + Client.getCurClient().getLogin() + "\\" +
                                 line_contents[1].split("\\\\")[line_contents[1].split("\\\\").length - 1] + "\n";
                         InputStream inputStream = new FileInputStream(line_contents[1]);
                         Reader helpful_reader = new InputStreamReader(inputStream);
@@ -98,7 +98,7 @@ public class ExecuteScriptCommand implements DefaultCommand{
             }
         } catch (NullPointerException e)
         {
-            System.out.println(script);
+            //System.out.println(script);
             files.put(file_name.split("\\\\")[file_name.split("\\\\").length - 1], script);
         } catch (IOException e)
         {

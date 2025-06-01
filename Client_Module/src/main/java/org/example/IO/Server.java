@@ -110,11 +110,12 @@ public class Server {
                 try
                 {
                     Integer.parseInt(response);
-                    System.out.println(response);
+                    System.out.println(id);
+
                 }
                 catch (NumberFormatException e)
                 {
-                    System.out.println(id);
+                    System.out.println(response);
                 }
                 if (response.contains("Sorry")  || id.contains("Sorry") || response == null || response.equals(""))
                 {
@@ -124,13 +125,16 @@ public class Server {
                     done = true;
                     //ClientApp.catchResponse(datagramChannel);
                     try {
-                        System.out.println("parsed" + Integer.parseInt(response));
-                        Client.curClient = client;
-                        Client.curClient.setId(Integer.parseInt(response));
+                        //System.out.println("parsed" + Integer.parseInt(response));
+                        //Client.getCurClient() = client;
+                        Client.setCurClient(client);
+                        Client.setCurId(Integer.parseInt(response));
+                        //Client.curClient.setId(Integer.parseInt(response));
                     } catch (NumberFormatException e) {
-                        System.out.println("parsed" + Integer.parseInt(id));
-                        Client.curClient = client;
-                        Client.curClient.setId(Integer.parseInt(id));
+                        //System.out.println("parsed" + Integer.parseInt(id));
+                        Client.setCurClient(client);
+                        Client.setCurId(Integer.parseInt(id));
+                        //Client.curClient.setId(Integer.parseInt(id));
                         //Client.curClient.
                     }
                     return response;
@@ -141,9 +145,9 @@ public class Server {
                 done = false;
             }
         }
-        System.out.println(client.toString());
+        //System.out.println(client.toString());
         ClientApp.client = client;
-        System.out.println(ClientApp.client.toString());
+        //System.out.println(ClientApp.client.toString());
         return "";
     }
     public static DatagramChannel reconnect() {

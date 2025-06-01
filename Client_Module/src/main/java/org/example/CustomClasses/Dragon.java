@@ -52,7 +52,7 @@ public class Dragon implements Serializable {
         this.character = DragonCharacter.GetCharacter(character);
         this.killer = killer;
         //this.owner_id = ClientApp.client.getId();
-        this.owner_id = Client.curClient.getId();
+        this.owner_id = Client.getCurClient().getId();
         /*this.owner = ClientApp.client;
         try {
             this.owner_id = ClientApp.client.getId();

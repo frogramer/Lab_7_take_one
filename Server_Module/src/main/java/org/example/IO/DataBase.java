@@ -26,6 +26,8 @@ public class DataBase {
         Connection connection = null;
         try{
         String url = "jdbc:postgresql://localhost:4782/dragons_data_base";
+        //"jdbc:postgresql://helios.cs.ifmo.ru:4782/dragons_data_base"
+            //"jdbc:postgresql://localhost:4782/dragons_data_base"
         String user = "postgres";
         String password = "361080";
         connection = DriverManager.getConnection(url, user, password);
@@ -44,7 +46,7 @@ public class DataBase {
         Dragon.dragons.entrySet().stream().filter(x -> {
             if (x.getValue().getOwnerId() == null)
             {
-                System.out.println("pizdec");
+                //System.out.println("pizdec");
             }
             if (x.getValue().getOwnerId().equals(client.getId()))
             {
@@ -275,7 +277,7 @@ public class DataBase {
                 //String salt = resultSet.getString("salt");
                 id = resultSet.getInt("id");
             }
-            System.out.println(id + " - this is id of " + client.getLogin());
+            //System.out.println(id + " - this is id of " + client.getLogin());
         } catch (SQLException e)
         {
             e.printStackTrace();
@@ -316,8 +318,8 @@ public class DataBase {
             if (resultSet.next()) {
                 String password = resultSet.getString("password");
                 String salt = resultSet.getString("salt");
-                System.out.println(password);
-                System.out.println(client.getHashedPassword());
+                //System.out.println(password);
+                //System.out.println(client.getHashedPassword());
                 if (password.equals(client.getHashedPassword()))
                 {
                     response = resultSet.getString("id");

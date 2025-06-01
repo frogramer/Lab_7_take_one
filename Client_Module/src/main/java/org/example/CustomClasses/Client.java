@@ -14,7 +14,7 @@ public class Client implements Serializable {
     private boolean signedIn;
     private String salt;
     private static Client client;
-    public static Client curClient = new Client();
+    private static Client curClient = new Client();
     private Integer id;
     public Client()
     {
@@ -29,12 +29,16 @@ public class Client implements Serializable {
     public static void setCurClient(Client curClient1) {
         curClient = curClient1;
     }
-    public Client getCurClient() {
-        return this.curClient;
+    public static Client getCurClient() {
+        return curClient;
     }
     public String getLogin1()
     {
         return this.login;
+    }
+    public static void setCurId(Integer id)
+    {
+        curClient.setId(id);
     }
     public String getPassword()
     {
@@ -66,22 +70,22 @@ public class Client implements Serializable {
         return this.signedIn;
     }
     public static String hashPassword(String password, byte[] salt) {
-        // 1. Создаем объект MessageDigest для SHA-384
-        System.out.println("unhashed password:" + password);
-        System.out.println("salt: " + salt);
+
+        /*System.out.println("unhashed password:" + password);
+        System.out.println("salt: " + salt);*/
         MessageDigest digest = null;
         try {
             digest = MessageDigest.getInstance("SHA-384");
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
-        // 2. Преобразуем пароль в байты (без добавления соли!)
+
         byte[] passwordBytes = password.getBytes(StandardCharsets.UTF_8);
 
-        // 3. Вычисляем хэш
+
         byte[] hashedBytes = digest.digest(passwordBytes);
 
-        // 4. Преобразуем хэш в Base64 для удобства хранения
+
         return Base64.getEncoder().encodeToString(hashedBytes);
 
     }

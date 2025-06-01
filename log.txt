@@ -1,4 +1,7 @@
-2025-06-01 01:02:33 [main] INFO  org.example.IO.Logging - Logging system initialized
-2025-06-01 01:02:51 [Thread-130566] INFO  org.example.ServerApp - Response sent
-2025-06-01 01:03:00 [Thread-196182] INFO  org.example.ServerApp - Response sent
-2025-06-01 01:03:06 [Thread-247457] INFO  org.example.ServerApp - Response sent
+2025-06-01 13:07:49 [main] INFO  org.example.IO.Logging - Logging system initialized
+2025-06-01 13:08:01 [Thread-51055] INFO  org.example.ServerApp - New client connected:
+2025-06-01 13:08:07 [Thread-99381] INFO  org.example.ServerApp - Command executed: class org.example.Commands.InfoCommand
+2025-06-01 13:08:10 [Thread-122711] INFO  org.example.ServerApp - Command executed: class org.example.Commands.ShowCommand
+2025-06-01 13:09:42 [Thread-800228] INFO  org.example.ServerApp - Command executed: class org.example.Commands.UpdateCommand
+2025-06-01 13:10:01 [Thread-947844] INFO  org.example.ServerApp - Command executed: class org.example.Commands.ExecuteScriptCommand
+2025-06-01 13:10:11 [Thread-1024267] INFO  org.example.ServerApp - Command executed: class org.example.Commands.ShowCommand

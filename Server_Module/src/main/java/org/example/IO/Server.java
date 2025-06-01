@@ -29,7 +29,7 @@ public class Server {
     private static final ExecutorService threadPool = Executors.newCachedThreadPool();
     public static String checkNewClient(DatagramChannel datagramChannel, SocketAddress clientAddress, Connection connection)
     {
-        System.out.println("Checking in process");
+        //System.out.println("Checking in process");
         String response = null;
         try {
 
@@ -37,7 +37,7 @@ public class Server {
             datagramChannel.receive(readBuffer);
             ByteArrayInputStream byteIn = new ByteArrayInputStream(readBuffer.array(), 0, readBuffer.limit());
             ObjectInputStream objectIn  = new ObjectInputStream(byteIn);
-            System.out.println("Checking in process");
+            //System.out.println("Checking in process");
             Client client = (Client) objectIn.readObject();
             if (client.isSignedIn())
             {
@@ -47,19 +47,20 @@ public class Server {
             {
                 response = DataBase.registerNewClient(client, connection);
             }
-            System.out.println(response);
+            //System.out.println(response);
             Server.sendResponse(response, clientAddress, datagramChannel);
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
         return null;
     }
-    public static String checkNewClient(Client client, DatagramChannel datagramChannel, SocketAddress clientAddress, Connection connection)
+    public static boolean checkNewClient(Client client, DatagramChannel datagramChannel, SocketAddress clientAddress, Connection connection)
     {
-        System.out.println("Checking in process");
+        //System.out.println("Checking in process");
+        boolean connected = false;
         String response = null;
         try {
-            System.out.println(client.getLogin1() + "\n"+ client.getPassword());
+            //System.out.println(client.getLogin1() + "\n"+ client.getPassword());
             if (client.isSignedIn())
             {
                 response = DataBase.signInClient(client, connection);
@@ -68,12 +69,16 @@ public class Server {
             {
                 response = DataBase.registerNewClient(client, connection);
             }
-            System.out.println(response + "hui");
+            //System.out.println(response + "hui");
             Server.sendResponse(response, clientAddress, datagramChannel);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+        if (!response.contains("Sorry"))
+        {
+            return true;
+        }
+        return false;
     }
     public static void readDefaultCollection(DatagramChannel datagramChannel) throws IOException {
         ByteBuffer buffer = ByteBuffer.allocate(4096);

@@ -122,7 +122,7 @@ public class Dragon implements Serializable {
         }catch (NullPointerException e){
             answer += "Dragon killer characteristics: no killer\n";
         }
-        answer += "Owner id: " + getOwnerId() + "\n";
+        //answer += "Owner id: " + getOwnerId() + "\n";
         return answer;
     }
     /** Method, that sets Dragon's id to needed value

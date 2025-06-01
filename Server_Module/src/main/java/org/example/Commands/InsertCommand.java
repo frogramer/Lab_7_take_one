@@ -56,10 +56,10 @@ public class InsertCommand implements DefaultCommand {
             Dragon dragon = Dragon.NewDragon(reader);
             dragon.setOwnerId(this.client.getId());
             InsertDragon(dragon);
-            if (dragon.getOwnerId().equals(this.client.getId())) {
+            /*if (dragon.getOwnerId().equals(this.client.getId())) {
                 System.out.println(this.client.getId());
             }
-            System.out.println(this.client.getId() + " " + dragon.getOwnerId());
+            System.out.println(this.client.getId() + " " + dragon.getOwnerId());*/
             //System.out.println();
             return "";
         } catch (Exception e) {
