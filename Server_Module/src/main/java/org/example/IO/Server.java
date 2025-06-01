@@ -20,10 +20,13 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
 public class Server {
     private static final int PORT = 4782;
+    private static final ExecutorService threadPool = Executors.newCachedThreadPool();
     public static String checkNewClient(DatagramChannel datagramChannel, SocketAddress clientAddress, Connection connection)
     {
         System.out.println("Checking in process");
@@ -107,18 +110,20 @@ public class Server {
     }
     public static void sendResponse(String response, SocketAddress socketAddress, DatagramChannel datagramChannel)
     {
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        OutputStreamWriter outputStreamWriter = new OutputStreamWriter(byteArrayOutputStream);
-        try {
-            outputStreamWriter.write(response);
-            outputStreamWriter.flush();
-            byte[] bytes = byteArrayOutputStream.toByteArray();
-            ByteBuffer byteBuffer = ByteBuffer.wrap(bytes);
-            datagramChannel.send(byteBuffer, socketAddress);
-            //System.out.println("Response sent");
-        } catch (IOException e) {
-            System.out.println("Error in sending response");
-        }
+        threadPool.execute(() -> {
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(byteArrayOutputStream);
+            try {
+                outputStreamWriter.write(response);
+                outputStreamWriter.flush();
+                byte[] bytes = byteArrayOutputStream.toByteArray();
+                ByteBuffer byteBuffer = ByteBuffer.wrap(bytes);
+                datagramChannel.send(byteBuffer, socketAddress);
+                //System.out.println("Response sent");
+            } catch (IOException e) {
+                System.out.println("Error in sending response");
+            }
+        });
     }
     public static DatagramChannel connect() throws IOException {
         DatagramChannel datagramChannel;

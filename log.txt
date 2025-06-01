@@ -1,9 +1,4 @@
-2025-05-29 22:01:49 [main] INFO  org.example.IO.Logging - Logging system initialized
-2025-05-29 22:02:03 [main] INFO  org.example.ServerApp - Command received and executed: info
-2025-05-29 22:02:03 [main] INFO  org.example.ServerApp - Response sent
-2025-05-29 22:02:31 [main] INFO  org.example.ServerApp - Command received and executed: insert
-2025-05-29 22:02:31 [main] INFO  org.example.ServerApp - Response sent
-2025-05-29 22:02:39 [main] INFO  org.example.ServerApp - Command received and executed: info
-2025-05-29 22:02:39 [main] INFO  org.example.ServerApp - Response sent
-2025-05-29 22:02:42 [main] INFO  org.example.ServerApp - Command received and executed: show
-2025-05-29 22:02:42 [main] INFO  org.example.ServerApp - Response sent
+2025-06-01 01:02:33 [main] INFO  org.example.IO.Logging - Logging system initialized
+2025-06-01 01:02:51 [Thread-130566] INFO  org.example.ServerApp - Response sent
+2025-06-01 01:03:00 [Thread-196182] INFO  org.example.ServerApp - Response sent
+2025-06-01 01:03:06 [Thread-247457] INFO  org.example.ServerApp - Response sent

@@ -43,9 +43,15 @@ public class ShowCommand implements DefaultCommand {
             response = response.replace(", ", "\n");
             if (this.client != null)
             {
-                response += "Your dragons:\n";
-                response += Dragon.dragons.entrySet().stream().
-                        map(x -> x.getValue().toString()).collect(Collectors.toCollection(ArrayList::new)).toString();
+                response += "\nYour dragons:\n";
+                response += Dragon.dragons.entrySet().stream().filter(x ->
+                {
+                    if (x.getValue().getOwnerId().equals(this.client.getId()))
+                    {
+                        return true;
+                    }
+                    return false;
+                }).map(x -> x.getValue().toString()).collect(Collectors.toCollection(ArrayList::new)).toString();
                 response = response.replace("[", "");
                 response= response.replace("]", "");
                 response = response.replace(", ", "\n");

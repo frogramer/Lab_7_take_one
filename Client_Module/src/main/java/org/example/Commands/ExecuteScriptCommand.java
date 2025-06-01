@@ -78,7 +78,7 @@ public class ExecuteScriptCommand implements DefaultCommand{
                         throw new FileNotFoundException();
                     }
                     else {
-                        script += "execute_script " + this.client.getLogin() + "\\\\" +
+                        script += "execute_script " + Client.curClient.getLogin() + "\\" +
                                 line_contents[1].split("\\\\")[line_contents[1].split("\\\\").length - 1] + "\n";
                         InputStream inputStream = new FileInputStream(line_contents[1]);
                         Reader helpful_reader = new InputStreamReader(inputStream);

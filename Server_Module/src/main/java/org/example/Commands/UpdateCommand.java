@@ -66,14 +66,15 @@ public class UpdateCommand implements DefaultCommand {
                 ObjectInputStream objectIn = new ObjectInputStream(byteIn);
                 if (objectIn != null && byteBuffer.hasRemaining()) {
                     Dragon dragon = (Dragon) objectIn.readObject();
-                    if (dragon.GetDragonid() == -1)
-                    {
+                    if (dragon.GetDragonid() == -1) {
                         return null;
-                    }
-                    else {
+                    } else {
                         return dragon;
                     }
                 }
+            } catch (NullPointerException e)
+            {
+                return null;
             }catch (IOException | ClassNotFoundException e) {
                 //e.printStackTrace();
             }

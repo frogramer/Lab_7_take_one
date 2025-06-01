@@ -20,6 +20,7 @@ import java.sql.Connection;
 public class ServerApp {
     private static final Logger logger = Logging.getLogger(ServerApp.class);
     private static int notYetSighed = 0;
+    private static final CommandProcessor processor = new CommandProcessor();
     public static void main(String[] args)  throws InterruptedException {
         boolean connected = false;
         /*Integer attempts_to_connect = 0;
@@ -72,27 +73,16 @@ public class ServerApp {
         //logger.info("New client connected");
         boolean first = false;
             while (true) {
-                try {
-                    //Server.checkConnection(datagramChannel);
-
-                    /*ByteBuffer readBuffer = ByteBuffer.allocate(1024);
-                    ByteBuffer writeBuffer = ByteBuffer.wrap("response".getBytes(StandardCharsets.UTF_8));
-                    SocketAddress socketAddress = datagramChannel.receive(readBuffer);
-                    if (socketAddress != null) {
-                        datagramChannel.send(writeBuffer, socketAddress);
-                        Thread.sleep(500);*/
+                new Thread(() -> {
+                    try {
                         readCommand(datagramChannel, connection);
-
-
-                       //datagramChannel.close();
-                    //}
-                } catch (ClassCastException e) {
-                    logger.debug(e.getMessage());
-                    continue;
-                } catch (IOException | ClassNotFoundException e) {
-                    //System.out.println("Error in work of the server");
-                    logger.debug(e.getMessage());
-                }
+                    } catch (ClassCastException e) {
+                        logger.debug(e.getMessage());
+                    } catch (IOException | ClassNotFoundException e) {
+                        //System.out.println("Error in work of the server");
+                        logger.debug(e.getMessage());
+                    }
+                }).start();
                 /*DefaultCommand command = readCommand(datagramChannel);
                 if (command != null) {
                     command.Execute(datagramChannel);
@@ -130,6 +120,7 @@ public class ServerApp {
                     e.printStackTrace();
                 }*/
                 datagramChannel.send(buffer, clientAddress);
+                Server.sendResponse(new ShowCommand().Execute(datagramChannel, clientAddress), clientAddress, datagramChannel);
                 System.out.println("Now checking client in");
                 Server.checkNewClient(datagramChannel, clientAddress, connection);
                 buffer.clear();
@@ -204,17 +195,18 @@ public class ServerApp {
 
                 }
                 else {*/
-                    String response = command.Execute(datagramChannel, clientAddress);
+                    /*String response = command.Execute(datagramChannel, clientAddress);
                     //System.out.println("Command executed");
                     logger.info("Command received and executed: " + command.toString());
-                    new SaveCommand().Execute(datagramChannel, clientAddress);
+                    new SaveCommand().Execute(datagramChannel, clientAddress);*/
                     try {
                         Thread.sleep(100);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                         logger.debug(e.getMessage());
                     }
-                    Server.sendResponse(response, clientAddress, datagramChannel);
+                    processor.process(command, datagramChannel, clientAddress);
+                    //Server.sendResponse(response, clientAddress, datagramChannel);
                     logger.info("Response sent");
                     System.out.println(command.getClient().getId());
                     SaveCommand.executeSaveDatabase(datagramChannel, connection, command.getClient());

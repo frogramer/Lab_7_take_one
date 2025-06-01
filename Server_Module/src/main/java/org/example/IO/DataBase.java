@@ -17,9 +17,10 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
-
+import java.util.concurrent.locks.ReentrantLock;
 public class DataBase {
     public static int notYetSighed = 0;
+    private static final ReentrantLock lock = new ReentrantLock(true);
     public static Connection connect()
     {
         Connection connection = null;
@@ -37,6 +38,7 @@ public class DataBase {
     }
     public static void saveDragons(Connection connection, Client client)
     {
+        lock.lock();
         String response = null;
         clearDataBase(connection, client);
         Dragon.dragons.entrySet().stream().filter(x -> {
@@ -155,9 +157,11 @@ public class DataBase {
             }
             return "all done";
         }).forEach(System.out::println);
+        lock.unlock();
     }
     public static ArrayList<Dragon> getDragons(Connection connection)
     {
+        lock.lock();
         ArrayList<Dragon> dragons = new ArrayList<>();
         try {
             String sql = "SELECT * FROM dragon";
@@ -238,40 +242,50 @@ public class DataBase {
             e.printStackTrace();
         }
         //return id;
+        lock.unlock();
         return dragons;
     }
     private static void clearDataBase(Connection connection, Client client)
     {
+        lock.lock();
         String sql = "delete from dragon where owner_id = ?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, client.getId());
-            preparedStatement.executeQuery();
+            preparedStatement.executeUpdate();
+            //preparedStatement.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        lock.unlock();
     }
     public static Integer getId(Client client, Connection connection)
     {
+        lock.lock();
         Integer id = null;
         try {
             String sql = "SELECT id FROM clients WHERE login = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, client.getLogin());
+            //System.out.println(cli`ent.getLogin() + " " + client.getId() + " that's all");
             ResultSet resultSet = preparedStatement.executeQuery();
+            //id = resultSet.getInt("id");
             if (resultSet.next()) {
                 //String password = resultSet.getString("password");
                 //String salt = resultSet.getString("salt");
                 id = resultSet.getInt("id");
             }
+            System.out.println(id + " - this is id of " + client.getLogin());
         } catch (SQLException e)
         {
             e.printStackTrace();
         }
+        lock.unlock();
         return id;
     }
     public static String registerNewClient(Client client, Connection connection)
     {
+        lock.lock();
         String response = null;
         try {
             String sql = "INSERT INTO clients (login, password, salt) VALUES (?, ?, ?)";
@@ -280,17 +294,19 @@ public class DataBase {
             preparedStatement.setString(2, client.getHashedPassword());
             preparedStatement.setString(3, client.getSalt());
             preparedStatement.executeUpdate();
-            response = "You are registered and signed in successfully";
+            response = String.valueOf(getId(client, connection));
             notYetSighed--;
         } catch (SQLException e)
         {
             response = "Sorry, this name is already taken. Please, choose another one";
             notYetSighed++;
         }
+        lock.unlock();
         return response;
     }
     public static String signInClient(Client client, Connection connection)
     {
+        lock.lock();
         String response = null;
         try {
             String sql = "SELECT id, password, salt FROM clients WHERE login = ?";
@@ -316,6 +332,7 @@ public class DataBase {
             e.printStackTrace();
             response = "Sorry, there is now no client with this login and password";
         }
+        lock.unlock();
         return response;
     }
     public static void start_registration(DatagramChannel datagramChannel, Connection connection, SocketAddress clientAddress)

@@ -125,10 +125,13 @@ public class Server {
                     //ClientApp.catchResponse(datagramChannel);
                     try {
                         System.out.println("parsed" + Integer.parseInt(response));
+                        Client.curClient = client;
                         Client.curClient.setId(Integer.parseInt(response));
                     } catch (NumberFormatException e) {
                         System.out.println("parsed" + Integer.parseInt(id));
+                        Client.curClient = client;
                         Client.curClient.setId(Integer.parseInt(id));
+                        //Client.curClient.
                     }
                     return response;
                 }

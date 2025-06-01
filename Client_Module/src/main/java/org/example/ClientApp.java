@@ -44,7 +44,7 @@ public class ClientApp {
                 datagramChannel.receive(readBuffer);*/
                 DefaultCommand command = InputCommand();
                 command.setClient(Client.curClient);
-                System.out.println(command.getClient().getId());
+                //System.out.println(command.getClient().getId());
                 //command.setClient(Client.curClient);
                 //command.setCurClient(client);
                 sendCommand(command, datagramChannel);
@@ -77,7 +77,7 @@ public class ClientApp {
                     e.printStackTrace();
                 }
             } catch (NullPointerException e) {
-                e.printStackTrace();
+                //e.printStackTrace();
                 System.out.println("There is no such command. Please, try again. You can see all the commands, using \"help\" command");
             }
         }

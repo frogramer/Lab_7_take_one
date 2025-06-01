@@ -1,5 +1,6 @@
 package org.example.Commands;
 
+import org.example.ClientApp;
 import org.example.CustomClasses.Client;
 import org.example.CustomClasses.Dragon;
 import org.example.CustomClasses.Person;
@@ -66,8 +67,14 @@ public class UpdateCommand implements DefaultCommand {
                 ObjectInputStream objectIn = new ObjectInputStream(byteIn);
                 if (objectIn != null && byteBuffer.hasRemaining()) {
                     Dragon dragon = (Dragon) objectIn.readObject();
+                    if (dragon == null)
+                    {
+                        System.out.println(ClientApp.catchResponse(datagramChannel));
+                        return null;
+                    }
                     if (dragon.GetDragonid() == -1)
                     {
+                        System.out.println(ClientApp.catchResponse(datagramChannel));
                         return null;
                     }
                     else {
